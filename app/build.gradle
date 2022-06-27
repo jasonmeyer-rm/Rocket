@@ -36,7 +36,8 @@ android {
     buildTypes {
         debug {
             versionNameSuffix " debug"
-            buildConfigField "String", "GAMES_BASE_URL", "\"https://disease.sh\""
+            buildConfigField "String", "GAMES_BASE_URL", "\"https://www.giantbomb.com/\""
+            buildConfigField "String", "GAMES_API_KEY", "\"9d45436f87d3848d2bdcce810bacb6df57dfd134\""
         }
         release {
             versionNameSuffix " release"
