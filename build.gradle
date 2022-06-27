@@ -1,0 +1,75 @@
+buildscript {
+    ext {
+        compileSdkVersion = 32
+        minSdkVersion = 21
+        targetSdkVersion = 32
+
+        // App dependencies
+        androidXTestVersion = "1.4.0"
+        appCompatVersion = "1.4.1"
+        constraintLayoutVersion = "2.1.4"
+        cardViewVersion = "1.0.0"
+        coreKtxVersion = "1.8.0"
+        coroutinesAllVersion = "1.6.2"
+        coroutinesVersion = "1.5.2"
+        espressoVersion = "3.4.0"
+        fragmentActivityVersion = "1.4.0"
+        fragmentKtxVersion = "1.3.0"
+        fragmentVersion = "1.4.1"
+        googleServices = '4.3.10'
+        glideVersion = '4.11.0'
+        gradleVersion = '7.2.1'
+        gsonVersion = '2.8.9'
+        hamcrestAllVersion = "1.3"
+        hamcrestVersion = "2.2"
+        hiltVersion = '2.40.1'
+        jodaVersion = "2.10.13"
+        junitVersion = "4.12"
+        jsoupVersion = "1.13.1"
+        kotlinVersion = "1.6.10"
+        lifecycleVersion = "2.4.1"
+        materialDesignVersion = "1.6.1"
+        mockitoVersion = "4.6.0"
+        mockitoKotlinVersion = "3.2.0"
+        mockKVersion = "1.12.4"
+        moshiVersion = "2.6.2"
+        okhttpVersion = "4.7.2"
+        packageName = "com.app.rocket"
+        playServicesAdsVersion = "20.6.0"
+        rulesVersion = "1.0.1"
+        retrofitVersion = "2.8.1"
+        recyclerViewVersion = "1.2.1"
+        runnerExtVersion = "1.1.3"
+        supportLibraryVersion = "1.0.2"
+        swipeRefreshVersion = "1.1.0"
+        timberVersion="4.7.1"
+        touchImageViewVersion = "3.0.1"
+        thruthVersion = "1.1.3"
+        viewBindingDelegate = "1.0.0"
+
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:$gradleVersion")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("com.google.gms:google-services:$googleServices")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:$hiltVersion")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,138 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+project.archivesBaseName = "rocketApk"
+
+android {
+
+    Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(file('../version.properties')))
+
+    defaultConfig {
+        applicationId rootProject.ext.packageName
+
+        compileSdkVersion rootProject.ext.compileSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        versionName versionProps['name']
+        versionCode versionProps['code'].toInteger()
+
+        multiDexEnabled true
+
+        buildConfigField "String", "DEVICE_TYPE", "\"android\""
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testOptions {
+            unitTests.includeAndroidResources true
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix " debug"
+            buildConfigField "String", "COVID_BASE_URL", "\"https://disease.sh\""
+        }
+        release {
+            versionNameSuffix " release"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-project.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    namespace rootProject.ext.packageName
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    kapt("com.android.databinding:compiler:$gradleVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
+
+    // Androidx
+    implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("androidx.appcompat:appcompat:$appCompatVersion")
+    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
+    implementation("androidx.cardview:cardview:$cardViewVersion")
+    implementation("androidx.recyclerview:recyclerview:$recyclerViewVersion")
+    implementation("androidx.lifecycle:lifecycle-common:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.activity:activity-ktx:$fragmentActivityVersion")
+    implementation("androidx.fragment:fragment-ktx:$fragmentKtxVersion")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshVersion")
+
+    // Networking
+    implementation("com.squareup.retrofit2:converter-moshi:$moshiVersion")
+    implementation("com.google.code.gson:gson:$gsonVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+
+    // Coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAllVersion")
+
+    // Hilt & Dagger
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    // Misc
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.google.android.material:material:$materialDesignVersion")
+    implementation("com.jakewharton.timber:timber:$timberVersion")
+    implementation("joda-time:joda-time:$jodaVersion")
+    implementation("com.github.Zhuinden:fragmentviewbindingdelegate-kt:$viewBindingDelegate")
+
+    // Testing - unit
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestAllVersion"
+    testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
+    testImplementation "com.google.truth:truth:$thruthVersion"
+    testImplementation "io.mockk:mockk:$mockKVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesAllVersion"
+
+    // Testing - ui
+    androidTestImplementation "io.mockk:mockk-android:$mockKVersion"
+    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+    androidTestImplementation "androidx.test.ext:junit:$runnerExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    // exclude checker framework from espresso-contrib
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion") {
+        exclude group: 'org.checkerframework', module: 'checker'
+        exclude module: "protobuf-lite"
+    }
+    androidTestImplementation "com.google.truth:truth:$thruthVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
+}
