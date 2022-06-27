@@ -36,7 +36,7 @@ android {
     buildTypes {
         debug {
             versionNameSuffix " debug"
-            buildConfigField "String", "COVID_BASE_URL", "\"https://disease.sh\""
+            buildConfigField "String", "GAMES_BASE_URL", "\"https://disease.sh\""
         }
         release {
             versionNameSuffix " release"

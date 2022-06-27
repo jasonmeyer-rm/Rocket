@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".MainActivity"
+            android:name=".feature.games.ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Rocket.NoActionBar">
             <intent-filter>

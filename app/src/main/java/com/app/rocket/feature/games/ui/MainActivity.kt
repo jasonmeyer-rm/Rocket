@@ -1,4 +1,4 @@
-package com.app.rocket
+package com.app.rocket.feature.games.ui
 
 import android.os.Bundle
 
