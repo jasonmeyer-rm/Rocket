@@ -13,22 +13,22 @@ import com.app.rocket.utils.visibleIfTrue
 import dagger.hilt.android.AndroidEntryPoint
 
 interface GamesListOnClickListener {
-    fun onGamesItemClicked(results: Game)
+    fun onGameItemClicked(results: Game)
 }
 
 
 @AndroidEntryPoint
 class GamesActivity : AppCompatActivity() {
 
-    //private lateinit var adapter: GamesAdapter
+    private lateinit var adapter: GameAdapter
     private lateinit var recyclerView: RecyclerView
 
     private val binding by viewBinding(ActivityGamesBinding::inflate)
     private val viewModel: GamesViewModel by viewModels()
 
     private val gameListOnClickListener = object : GamesListOnClickListener {
-        override fun onGamesItemClicked(results: Game) {
-            showToast(this@GamesActivity, results.description)
+        override fun onGameItemClicked(game: Game) {
+            showToast(this@GamesActivity, game.name)
         }
     }
 
@@ -41,9 +41,9 @@ class GamesActivity : AppCompatActivity() {
             gamesViewModel = viewModel
         }
 
-        //adapter = GamesAdapter( { game -> gameListOnClickListener.onCovidCardClicked(country) } , resources)
+        adapter = GameAdapter( { game -> gameListOnClickListener.onGameItemClicked(game) } , resources)
         recyclerView = binding.gamesRv
-        //recyclerView.adapter = adapter
+        recyclerView.adapter = adapter
 
         initObservers()
 
@@ -52,8 +52,7 @@ class GamesActivity : AppCompatActivity() {
     private fun initObservers() {
         with(viewModel) {
             gamesResponse.observe(this@GamesActivity) { resp ->
-               // adapter.updateAdapter(resp.data ?: listOf())
-                showToast(this@GamesActivity, resp.toString())
+               adapter.updateAdapter(resp.data ?: listOf())
             }
             isLoading.observe(this@GamesActivity) { isLoading ->
                 with(binding) {
