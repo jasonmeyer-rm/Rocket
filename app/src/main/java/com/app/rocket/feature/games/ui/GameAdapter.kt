@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.app.rocket.R
 import com.app.rocket.databinding.ItemGameBinding
 import com.app.rocket.feature.games.data.models.Game
 import com.app.rocket.feature.games.data.models.Image
+import com.app.rocket.utils.EMPTY_STRING
 import com.bumptech.glide.Glide
 
 class GameAdapter(
-    private val onGameItemClicked: (Game) -> Unit,
+    private val onGameClicked: (Game) -> Unit,
     private val resources: Resources
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,22 +28,17 @@ class GameAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context)
-        with(circularProgressDrawable) {
-            strokeWidth = 5f
-            centerRadius = 30f
-            start()
-        }
-
+        val loadingIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_loading, null)
         when (holder) {
             is GameViewHolder -> {
                 holder.binding?.let {
-                    it.game = data[position]
+                    val pos = data[position]
+                    it.game = pos
 
                     Glide.with(holder.itemView.context)
-                        .load(data[position].image?.icon_url ?: "")
-                        .placeholder(circularProgressDrawable)
-                        .error(ResourcesCompat.getDrawable(resources, R.drawable.ic_loading, null))
+                        .load(pos.image?.icon_url ?: EMPTY_STRING)
+                        .placeholder(loadingIcon)
+                        .error(loadingIcon)
                         .into(it.image)
                 }
             }
@@ -63,8 +58,8 @@ class GameAdapter(
 
         init {
             binding?.let {
-                it.parentContainer.setOnClickListener {
-                    onGameItemClicked(binding.game ?: Game(name = "", description = "", image = (Image(icon_url = ""))))
+                it.container.setOnClickListener {
+                    onGameClicked(binding.game ?: Game(name = EMPTY_STRING, description = EMPTY_STRING, image = (Image(icon_url = EMPTY_STRING))))
                 }
             }
         }

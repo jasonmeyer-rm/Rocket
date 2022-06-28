@@ -21,11 +21,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="10"
+            tools:itemCount="5"
             tools:listitem="@layout/item_game" />
 
         <TextView
-            android:id="@+id/error_loading_content_label"
+            android:id="@+id/error_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"

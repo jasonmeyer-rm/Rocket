@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.DialogFragment
 import com.app.rocket.R
 import com.app.rocket.databinding.DialogFragmentGameBinding
@@ -42,20 +43,18 @@ class GameDialogFragment : DialogFragment(), GameDialogContract.View {
     private fun initBinding() {
 
         with(binding) {
+            val loadingIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_loading, null)
 
-          Glide.with(requireActivity())
+            Glide.with(requireActivity())
                 .load(gameImageUrlArgs)
-                .placeholder(R.drawable.ic_loading)
-                .error(R.drawable.ic_loading)
+                .placeholder(loadingIcon)
+                .error(loadingIcon)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(image)
 
             name.text = gameNameArgs?.ifEmpty { getString(R.string.game_no_title) }
             description.text = gameDescArgs?.ifEmpty { getString(R.string.game_no_desc) }
-
-            closeBtn.setOnClickListener {
-                presenter.onClosedButtonClicked()
-            }
+            closeBtn.setOnClickListener { presenter.onClosedButtonClicked() }
         }
     }
 
@@ -69,12 +68,15 @@ class GameDialogFragment : DialogFragment(), GameDialogContract.View {
     }
 
     companion object {
-        const val GAME_IMAGE_URL_ARGS: String = "gameImageUrlArgs"
-        const val GAME_NAME_ARGS: String = "gameNameArgs"
-        const val GAME_DESC_ARGS: String = "gameDescArgs"
+        const val GAME_IMAGE_URL_ARGS = "gameImageUrlArgs"
+        const val GAME_NAME_ARGS = "gameNameArgs"
+        const val GAME_DESC_ARGS = "gameDescArgs"
+
+        val TAG: String = GameDialogFragment::class.java.simpleName
 
         fun getInstance() = GameDialogFragment()
     }
-
 }
+
+
 
