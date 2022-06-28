@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.app.rocket.R
 import com.app.rocket.databinding.ItemGameBinding
 import com.app.rocket.feature.games.data.models.Game
+import com.app.rocket.feature.games.data.models.Image
 import com.bumptech.glide.Glide
 
 class GameAdapter(
@@ -40,7 +41,7 @@ class GameAdapter(
                     it.game = data[position]
 
                     Glide.with(holder.itemView.context)
-                        .load(data[position].image.icon_url)
+                        .load(data[position].image?.icon_url ?: "")
                         .placeholder(circularProgressDrawable)
                         .error(ResourcesCompat.getDrawable(resources, R.drawable.ic_loading, null))
                         .into(it.image)
@@ -63,7 +64,7 @@ class GameAdapter(
         init {
             binding?.let {
                 it.parentContainer.setOnClickListener {
-                    onGameItemClicked(binding.game ?: Game(name = "", description = ""))
+                    onGameItemClicked(binding.game ?: Game(name = "", description = "", image = (Image(icon_url = ""))))
                 }
             }
         }
