@@ -8,4 +8,4 @@ data class Game(
     val image: Image? = Image(icon_url = "")
 )
 
-data class Image(val icon_url: String?)
+data class Image(val icon_url: String? = "")

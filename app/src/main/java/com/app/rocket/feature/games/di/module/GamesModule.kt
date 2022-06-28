@@ -1,6 +1,5 @@
 package com.app.rocket.feature.games.di.module
 
-
 import com.app.rocket.BuildConfig
 import com.app.rocket.feature.games.data.api.GamesService
 import dagger.Module
@@ -43,10 +42,5 @@ class GamesModule {
     @Singleton
     fun provideGamesService(retrofit: Retrofit): GamesService =
         retrofit.create(GamesService::class.java)
-
-//    @Provides
-//    @Singleton
-//    fun provideGamesContract(covidTrackingImpl: CovidTrackingImpl): CovidTrackingContract =
-//        covidTrackingImpl
 
 }

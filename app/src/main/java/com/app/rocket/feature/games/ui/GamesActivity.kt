@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.app.rocket.R
 import com.app.rocket.databinding.ActivityGamesBinding
 import com.app.rocket.feature.games.data.models.Game
 import com.app.rocket.feature.games.ui.dialog.GameDialogFragment
@@ -77,9 +78,12 @@ class GamesActivity : AppCompatActivity() {
                 with(binding) {
                     progressBar.visibleIfTrue(!isError)
                     gamesRv.visibleIfTrue(!isError)
+                    errorLoadingContentLabel.apply {
+                        visibleIfTrue(isError)
+                        text = getString(R.string.error_loading)
+                    }
                 }
             }
         }
     }
 }
-
