@@ -52,8 +52,9 @@ class GameDialogFragment : DialogFragment(), GameDialogContract.View {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(image)
 
+            val shouldShowMissingDescription = gameDescArgs?.isBlank() == true || gameDescArgs == ".\n" || gameDescArgs?.isEmpty() == true
+            description.text = if (shouldShowMissingDescription) getString(R.string.game_missing_desc) else gameDescArgs
             name.text = gameNameArgs?.ifEmpty { getString(R.string.game_no_title) }
-            description.text = gameDescArgs?.ifEmpty { getString(R.string.game_no_desc) }
             closeBtn.setOnClickListener { presenter.onClosedButtonClicked() }
         }
     }
@@ -77,6 +78,3 @@ class GameDialogFragment : DialogFragment(), GameDialogContract.View {
         fun getInstance() = GameDialogFragment()
     }
 }
-
-
-

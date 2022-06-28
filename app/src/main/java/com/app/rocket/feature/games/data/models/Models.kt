@@ -1,6 +1,6 @@
 package com.app.rocket.feature.games.data.models
 
-data class GamesResponse(val results: List<Game>)
+data class GamesResponse(val results: List<Game> = listOf())
 
 data class Game(
     val name: String? = "",

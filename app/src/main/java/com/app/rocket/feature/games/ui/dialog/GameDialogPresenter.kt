@@ -1,5 +1,9 @@
 package com.app.rocket.feature.games.ui.dialog
 
+/*
+ * MVP here is a bit much just to close a dialog which will increase codebase & app size.
+ * My intention here is to demonstrate different application architectures.
+ */
 class GameDialogPresenter : GameDialogContract.Presenter {
     private var view: GameDialogContract.View? = null
 

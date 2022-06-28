@@ -1,9 +1,6 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-
     <dimen name="margin_medium">10dp</dimen>
     <dimen name="margin_large">20dp</dimen>
-
 
     <dimen name="text_small">18sp</dimen>
     <dimen name="text_medium">20sp</dimen>

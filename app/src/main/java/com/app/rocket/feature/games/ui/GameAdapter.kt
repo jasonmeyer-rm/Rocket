@@ -59,9 +59,12 @@ class GameAdapter(
         init {
             binding?.let {
                 it.container.setOnClickListener {
-                    onGameClicked(binding.game ?: Game(name = EMPTY_STRING, description = EMPTY_STRING, image = (Image(icon_url = EMPTY_STRING))))
+                    onGameClicked(
+                        binding.game ?: Game(name = EMPTY_STRING, description = EMPTY_STRING, image = (Image(icon_url = EMPTY_STRING)))
+                    )
                 }
             }
         }
     }
 }
+

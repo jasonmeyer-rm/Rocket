@@ -10,9 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GamesViewModel @Inject constructor(
-    private val gamesRepository: GamesRepository
-) : ViewModel() {
+class GamesViewModel @Inject constructor(private val gamesRepository: GamesRepository) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean>
